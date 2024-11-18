@@ -1,0 +1,1 @@
+# Student_Management_System_.NET_Core_Onion_Architecture_MVC
