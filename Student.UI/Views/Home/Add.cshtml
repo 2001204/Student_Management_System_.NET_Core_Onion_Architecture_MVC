@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Add Student";
+}
+
+<h1>Add Student</h1>
+
+<form id="addStudentForm">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name">
+    </div>
+    <div class="form-group">
+        <label for="age">Age:</label>
+        <input type="number" class="form-control" id="age" name="age">
+    </div>
+    <button type="submit" class="btn btn-primary">Add Student</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#addStudentForm").submit(function (event) {
+            event.preventDefault();
+            var formData = {
+                studentid: 0, // Set default value if needed
+                firstname: $("#firstname").val(),
+                lastname: $("#lastname").val(),
+                dateofbirth: $("#dateofbirth").val(),
+                gender: $("#gender").val(),
+                email: $("#email").val(),
+                phonenumber: $("#phonenumber").val(),
+                addressid: 0, // Set default value if needed
+                tempaddressid: 0, // Set default value if needed
+                createdby: "string", // Set default value if needed
+                createdon: new Date().toISOString(),
+                modifiedby: "string", // Set default value if needed
+                modifiedon: new Date().toISOString(),
+                address: {
+                    addressid: 0, // Set default value if needed
+                    streetname: $("#streetname").val(),
+                    city: $("#city").val(),
+                    state: $("#state").val(),
+                    country: $("#country").val(),
+                    zipcode: parseInt($("#zipcode").val()), // Convert to integer if needed
+                    createdby: "string", // Set default value if needed
+                    createdon: new Date().toISOString(),
+                    modifiedby: "string", // Set default value if needed
+                    modifiedon: new Date().toISOString()
+                },
+                enrollments: [], // Array, if needed
+                fees: [], // Array, if needed
+                tempaddress: {
+                    tempaddressid: 0, // Set default value if needed
+                    streetname: $("#tempstreetname").val(),
+                    city: $("#tempcity").val(),
+                    state: $("#tempstate").val(),
+                    country: $("#tempcountry").val(),
+                    zipcode: parseInt($("#tempzipcode").val()), // Convert to integer if needed
+                    createdby: "string", // Set default value if needed
+                    createdon: new Date().toISOString(),
+                    modifiedby: "string", // Set default value if needed
+                    modifiedon: new Date().toISOString()
+                }
+            };
+            $.ajax({
+                url: "/api/Student",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function () {
+                    window.location.href = "/Student";
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
